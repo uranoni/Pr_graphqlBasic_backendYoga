@@ -1,25 +1,34 @@
 import { GraphQLServer } from 'graphql-yoga'
 
 //Type definitions (Schema)
-// Scalar Type - String , Boolean,Float,ID,Int
+// type first letter use upper case 
+//reference it by its name  User(Query)  in custom type (User) 
+// custom type cab be use nullable when you decide
 const typeDefs = `
   type Query {
-    title:String!
-    price:Float!
-    releaseYear:Int
-    rating:Float
-    isStock:Boolean!
-    
-  }
+        me:User
+    }
+
+    type User{
+        id:ID!
+        name:String!
+        email:String!
+        age:Int
+    }
 `
 // Resolvers 
 const resolvers = {
     Query: {
-        title: () => "Harry potter",
-        price: () => 12.99,
-        releaseYear: () => null,
-        rating: () => 5,
-        isStock: () => true
+        // match up me return object to user
+        // in this case resolver not a Scalar va;ue use curly bracket
+        me: () => {
+            return {
+                id: "M0724001",
+                name: "Kevin",
+                email: "Kevin@gmail.com",
+                age: 24
+            }
+        }
     }
 }
 
