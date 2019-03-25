@@ -6,7 +6,8 @@ import { GraphQLServer } from 'graphql-yoga'
 // custom type cab be use nullable when you decide
 const typeDefs = `
   type Query {
-        me:User
+        me:User!
+        post:Post!
     }
 
     type User{
@@ -14,6 +15,13 @@ const typeDefs = `
         name:String!
         email:String!
         age:Int
+    }
+
+    type Post{
+        id:ID!
+        title:String!
+        body:String!
+        published:Boolean!
     }
 `
 // Resolvers 
@@ -27,6 +35,14 @@ const resolvers = {
                 name: "Kevin",
                 email: "Kevin@gmail.com",
                 age: 24
+            }
+        },
+        post: () => {
+            return {
+                id: "01",
+                title: "hello GraphQL",
+                body: "test GraphQL",
+                published: true
             }
         }
     }
