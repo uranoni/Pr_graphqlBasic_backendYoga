@@ -1,26 +1,31 @@
 import { GraphQLServer } from 'graphql-yoga'
 
 //Type definitions (Schema)
-
-// hello(name: String): String!  Can put arg in side
+// Scalar Type - String , Boolean,Float,ID,Int
 const typeDefs = `
   type Query {
-   
-    hello:String!
+    title:String!
+    price:Float!
+    releaseYear:Int
+    rating:Float
+    isStock:Boolean!
+    
   }
 `
 // Resolvers 
 const resolvers = {
-  Query: {
-    // hello: (_, { name }) => `Hello ${name || 'World'}`,
-    // hello: () => "hello world"
-    hello() { return "hello world" }
-  },
+    Query: {
+        title: () => "Harry potter",
+        price: () => 12.99,
+        releaseYear: () => null,
+        rating: () => 5,
+        isStock: () => true
+    }
 }
 
 const server = new GraphQLServer({
-  typeDefs, resolvers
+    typeDefs, resolvers
 })
 server.start(() =>
-  console.log('Server is running on localhost:4000')
+    console.log('Server is running on localhost:4000')
 )
