@@ -1,15 +1,26 @@
 import { GraphQLServer } from 'graphql-yoga'
 
-//Type definitions (Schema)
-// type first letter use upper case 
-//reference it by its name  User(Query)  in custom type (User) 
-// custom type cab be use nullable when you decide
-// argument can be array can allow represent complex data not sclar type
+const users = [
+    {
+        id:'1',
+        name:'Roni',
+        email:"roni@gmail.com",
+        age:'24'
+    },
+    {
+        id:'2',
+        name:"Kao",
+        email:"Kao@gmail.com"
+    },
+    {
+        id:'3',
+        name:"Mike",
+        email:"mike@gmail.com"
+    }
+]
 const typeDefs = `
     type Query {
-        greeting(name: String, position: String): String!
-        add(numbers:[Float!]!): Float!
-        grades:[Int!]!
+        users(query:String):[User!]!
         me: User!
         post: Post!
     }
@@ -31,27 +42,14 @@ const typeDefs = `
 // Resolvers 
 const resolvers = {
     Query: {
-        // parents is root query 
-        //args is client data across 
-        //ctx 
-        greeting(parent, args, ctx, info) {
-            if (args.name && args.position) {
-                return `Hello, ${args.name}! You are my favoriate ${args.position}.`
-            } else {
-                return 'Hello!'
+        // each object match schema type
+        users(parent,args,ctx,info){
+            if(!args.query){
+                return users
             }
-        },
-        add(parent, args, ctx, info) {
-            // return args.a + args.b
-            if(args.numbers.length == 0){
-                return 0
-            }
-            // reduce array add
-            //[1,5,10,2]
-            return args.numbers.reduce((accumulator,currentvalue)=>{
-                return accumulator+currentvalue
+            return users.filter((user)=>{
+                return user.name.toLowerCase().includes(args.query.toLowerCase())
             })
-
         },
         me: () => {
             return {
@@ -60,9 +58,6 @@ const resolvers = {
                 email: "Kevin@gmail.com",
                 age: 24
             }
-        },
-        grades(parent,args,ctx,info){
-            return [90,80,88]
         },
         post: () => {
             return {
