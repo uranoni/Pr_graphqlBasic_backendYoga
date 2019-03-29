@@ -19,7 +19,6 @@ const users = [
     }
 ]
 
-//make post data accosicate author
 const posts = [{
     id: '10',
     title: 'GraphQL 101',
@@ -41,6 +40,9 @@ const posts = [{
 }]
 
 // setting up a filed whose value is anoter custom type
+// if one of filed is not scalar type
+// we have to set up custom resolver
+// to teach graphql how to get correct data
 const typeDefs = `
     type Query {
         users(query:String):[User!]!
@@ -54,6 +56,7 @@ const typeDefs = `
         name: String!
         email: String!
         age: Int
+        posts:[Post!]!
     }
 
     type Post {
@@ -67,7 +70,8 @@ const typeDefs = `
 // Resolvers 
 const resolvers = {
     Query: {
-        // each object match schema type
+        // if this fuction return 6 users
+        // it is going to call this method(under post function) six times
         users(parent, args, ctx, info) {
             if (!args.query) {
                 return users
@@ -104,12 +108,19 @@ const resolvers = {
             }
         }
     },
-    // set up property match post 
-    // and post information live  in parent args
     Post: {
         author(parent, args, ctx, info) {
             return users.find((user) => {
                 return user.id === parent.author
+            })
+        }
+    },
+    // each time ti calls it will be calling it 
+    // with different value for parent
+    User: {
+        posts(parent, args, ctx, info) {
+            return posts.filter((post) => {
+                return post.author === parent.id
             })
         }
     }
