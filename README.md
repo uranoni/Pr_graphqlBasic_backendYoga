@@ -7,6 +7,11 @@
  to teach graphql how to get correct data
  3. 
 #### this is User type but add posts Post is not scalar type
+ setting up a filed whose value is anoter custom type
+ if one of filed is not scalar type
+ we have to set up custom resolver
+ to teach graphql how to get correct data
+
     type Query {
         users(query:String):[User!]!
         posts(query: String): [Post!]!
@@ -30,6 +35,8 @@
         author: User!
     }
 #### this is resolver below  root Query
+         if this fuction return 6 users
+         it is going to call this method(under post function) six times
         users(parent, args, ctx, info) {
             if (!args.query) {
                 return users
@@ -78,3 +85,8 @@ we need to wirte to explain that and teach graphql
             })
         }
 we saw that users will retun many user and each will retun many posts so when excute this function it will call Post function time
+
+<!-- time log 2019-03-30 Roni -->
+### between relation in comment
+
+#### parent's argument is yout root type

@@ -39,6 +39,28 @@ const posts = [{
     author: '2'
 }]
 
+const comments = [
+    { 
+        id:'102',
+        text:"This worked will for me . Thanks!",
+        author:'3'
+    },
+    {
+        id:'103',
+        text:"See you !!",
+        author:'1'
+    },
+    {
+        id:'104',
+        text:"This did not work",
+        author:'2'
+    },
+    {
+        id:'105',
+        text:"Nevermind. I got it to work",
+        author:'3'
+    }
+]
 // setting up a filed whose value is anoter custom type
 // if one of filed is not scalar type
 // we have to set up custom resolver
@@ -47,6 +69,7 @@ const typeDefs = `
     type Query {
         users(query:String):[User!]!
         posts(query: String): [Post!]!
+        comments:[Comment!]!
         me: User!
         post: Post!
     }
@@ -57,6 +80,7 @@ const typeDefs = `
         email: String!
         age: Int
         posts:[Post!]!
+        comments:[Comment!]!
     }
 
     type Post {
@@ -65,6 +89,12 @@ const typeDefs = `
         body: String!
         published: Boolean!
         author: User!
+    }
+
+    type Comment{
+        id:ID!
+        text:String!
+        author:User!
     }
 `
 // Resolvers 
@@ -91,6 +121,9 @@ const resolvers = {
                 return isTitleMatch || isBodyMatch
             })
         },
+        comments(parent,args,ctx,info){
+            return comments
+        },
         me: () => {
             return {
                 id: "M0724001",
@@ -115,12 +148,23 @@ const resolvers = {
             })
         }
     },
-    // each time ti calls it will be calling it 
-    // with different value for parent
+    Comment:{
+        author(parent,args,ctx,info){
+            return users.find((user)=>{
+                console.log(parent)
+                return user.id === parent.author
+            })
+        }
+    },
     User: {
         posts(parent, args, ctx, info) {
             return posts.filter((post) => {
                 return post.author === parent.id
+            })
+        },
+        comments(parent,args,ctx,info){
+            return comments.filter((comment)=>{
+                return comment.author === parent.id
             })
         }
     }
@@ -129,6 +173,7 @@ const resolvers = {
 const server = new GraphQLServer({
     typeDefs, resolvers
 })
+
 server.start(() =>
     console.log('Server is running on localhost:4000')
 )
