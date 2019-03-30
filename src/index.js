@@ -43,28 +43,29 @@ const comments = [
     { 
         id:'102',
         text:"This worked will for me . Thanks!",
-        author:'3'
+        author:'3',
+        post:"10"
     },
     {
         id:'103',
         text:"See you !!",
-        author:'1'
+        author:'1',
+        post:"10"
     },
     {
         id:'104',
         text:"This did not work",
-        author:'2'
+        author:'2',
+        post:"12"
     },
     {
         id:'105',
         text:"Nevermind. I got it to work",
-        author:'3'
+        author:'3',
+        post:"12"
     }
 ]
-// setting up a filed whose value is anoter custom type
-// if one of filed is not scalar type
-// we have to set up custom resolver
-// to teach graphql how to get correct data
+
 const typeDefs = `
     type Query {
         users(query:String):[User!]!
@@ -89,19 +90,20 @@ const typeDefs = `
         body: String!
         published: Boolean!
         author: User!
+        comments:[Comment!]!
     }
 
     type Comment{
         id:ID!
         text:String!
         author:User!
+        post:Post!
     }
 `
 // Resolvers 
 const resolvers = {
     Query: {
-        // if this fuction return 6 users
-        // it is going to call this method(under post function) six times
+
         users(parent, args, ctx, info) {
             if (!args.query) {
                 return users
@@ -146,13 +148,24 @@ const resolvers = {
             return users.find((user) => {
                 return user.id === parent.author
             })
+        },
+        comments(parent,args,ctx,info){
+            return comments.filter((comment)=>{
+                return comment.post ===parent.id
+            })
         }
     },
     Comment:{
         author(parent,args,ctx,info){
             return users.find((user)=>{
-                console.log(parent)
                 return user.id === parent.author
+            })
+        },
+        post(parent,args,ctx,info){
+            return posts.find((post)=>{
+                console.log(post)
+                console.log(parent)
+                return post.id === parent.post
             })
         }
     },

@@ -90,3 +90,13 @@ we saw that users will retun many user and each will retun many posts so when ex
 ### between relation in comment
 
 #### parent's argument is yout root type
+
+### GraphQL Shape Data
+GrqphQL 's Client is who dicatates what data comes back and as we can see this is 
+actually useful.
+
+### Query complete 
+query is only read
+
+---
+
