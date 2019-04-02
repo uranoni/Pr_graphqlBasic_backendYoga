@@ -1,4 +1,5 @@
-<!-- time log 2019 03 29 Roni's note -->
+time log 2019 04 02 Roni's note 
+This is Andrew course in Udemy
 # Graphql course basic and notes
 ## type def
  ## setting up a filed whose value is anoter custom type
@@ -111,3 +112,8 @@ we're concerned with actually creating updating or deleting some data
 and then responding accordingly
 
 get some values passed in via that args
+
+
+04/02
+
+### know how to relate to type comment to user and post
