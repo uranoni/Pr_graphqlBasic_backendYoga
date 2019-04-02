@@ -92,7 +92,7 @@ we saw that users will retun many user and each will retun many posts so when ex
 #### parent's argument is yout root type
 
 ### GraphQL Shape Data
-GrqphQL 's Client is who dicatates what data comes back and as we can see this is 
+GrqphQL 's Client is who dictates what data comes back and as we can see this is 
 actually useful.
 
 ### Query complete 
@@ -100,3 +100,14 @@ query is only read
 
 ---
 
+## Mutation
+then the server needs to respond accordingly.
+
+ex:validation on that data dor expamle making sure the email
+
+
+### CRUD
+we're concerned with actually creating updating or deleting some data
+and then responding accordingly
+
+get some values passed in via that args

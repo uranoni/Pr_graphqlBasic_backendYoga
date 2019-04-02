@@ -1,4 +1,6 @@
 import { GraphQLServer } from 'graphql-yoga'
+import uuidv4 from 'uuid/v4'
+
 
 const users = [
     {
@@ -74,7 +76,10 @@ const typeDefs = `
         me: User!
         post: Post!
     }
-
+    type Mutation {
+       createUser(name: String!,email: String!,age: Int):User! 
+       createPost(title: String!, body: String! , published: Boolean!,author: ID!):Post!
+    }
     type User {
         id: ID!
         name: String!
@@ -141,6 +146,46 @@ const resolvers = {
                 body: "test GraphQL",
                 published: true
             }
+        }
+    },
+    Mutation:{
+        createUser(parent,args,ctx,info){
+            const emailTaken = users.some( (user)=>  user.email === args.email )
+            if(emailTaken){
+                throw new Error('Email taken')
+            }
+
+            const user = {
+                id:uuidv4(),
+                name:args.name,
+                email:args.email,
+                age:args.age
+
+            }
+
+            users.push(user)
+            return user
+        },
+        createPost(parent,args,ctx,info){
+            const userExists = users.some((user) => {
+
+                return user.id === args.author
+            })
+           
+            if(!userExists){
+                throw new Error('User is not found')
+            }
+
+            const post = {
+                id: uuidv4(),
+                title: args.title,
+                body: args.body,
+                published: args.published,
+                author: args.author
+            }
+
+            posts.push(post)
+            return post;
         }
     },
     Post: {
