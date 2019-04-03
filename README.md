@@ -117,3 +117,15 @@ get some values passed in via that args
 04/02
 
 ### know how to relate to type comment to user and post
+
+bablel preset is nothing more than a collection of plugin all group
+together to provide some sort of cohesive behavior
+
+### spread operator
+have slightly easier ways to maintain our code something
+that scales a bit better args are more properties on it
+
+### type input for mutation
+we now have these input types which can be reused across other operations creating
+
+separately from the operation definition itself.
