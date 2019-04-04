@@ -129,3 +129,12 @@ that scales a bit better args are more properties on it
 we now have these input types which can be reused across other operations creating
 
 separately from the operation definition itself.
+
+### problem 1  onlut delete user in mutation
+And this is a problem because any type definitions.
+We said that author was a non nullable field.
+So to fix this we can either make it a nullable field which we don't want to do or we can actually clean
+So to fix this we can either make it a nullable field which we don't want to do or we can actually clean
+
+### delete comment 
+when delete comment don't need to check post and user because is indivual thing
