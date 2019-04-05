@@ -150,5 +150,7 @@ pubsub.asyncIterator is a aysnc method to define what channel what to subscripti
 
 ### in the comment resolver can do what published 
 
+### learn the ENUM type
+this is use to scope value in String and enum type must be STRING
 
 
