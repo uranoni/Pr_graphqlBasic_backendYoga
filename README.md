@@ -1,4 +1,4 @@
-time log 2019 04 02 Roni's note 
+## time log 2019 04 02 Roni's note 
 This is Andrew course in Udemy
 # Graphql course basic and notes
 ## type def
@@ -114,7 +114,7 @@ and then responding accordingly
 get some values passed in via that args
 
 
-04/02
+## 04/02 log note
 
 ### know how to relate to type comment to user and post
 
@@ -138,3 +138,17 @@ So to fix this we can either make it a nullable field which we don't want to do 
 
 ### delete comment 
 when delete comment don't need to check post and user because is indivual thing
+
+## 04/05 log 
+### pusbup is a subscription object in context to across the resolver
+First , we need to subscribe function in Subscriptionjs
+### define the subscription schema
+it's simalary to define other type
+
+### Subscription resolver do
+pubsub.asyncIterator is a aysnc method to define what channel what to subscription
+
+### in the comment resolver can do what published 
+
+
+
